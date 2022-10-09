@@ -1,0 +1,102 @@
+1
+a. {x/A, y/A, z/B}
+b. impossible
+c. {x/B, y/A}
+d. {x/John, y/John}
+e. impossible
+
+2a
+(A x)Isfood(x1) => Likes(John,x1)
+Isfood(Apple)
+Isfood(Chicken)
+(A x2,y2)(Eats(x2,y2) & ~Killedby(x2,y2) => Isfood(y2))
+(A x3,y3)(Killedby(x3,y3) => ~Alive(x3))
+Eats(Bill,Peanuts) & Alive(Bill)
+(A x4)Eats(Bill,x4) => Eats(Sue,x4)
+
+2b
+~Isfood(x1) | Likes(John,x1)
+Isfood(Apple)
+Isfood(Chicken)
+~Eats(x2,y2) | Killedby(x2,y2) | Isfood(y2)
+~Killed(x3,y3) | ~Alive(x3)
+Eats(Bill,Peanuts)
+Alive(Bill)
+~Eats(Bill,x4) | Eats(Sue,x4)
+
+2c
+1. ~Isfood(x1) | Likes(John,x1)
+2. Isfood(Apple)
+3. Isfood(Chicken)
+4. ~Eats(x2,y2) | Killedby(x2,y2) | Isfood(y2)
+5. ~Killedby(x3,y3) | ~Alive(x3)
+6. Eats(Bill, Peanuts)
+7. Alive(Bill)
+8. ~Eats(Bill,x4) | Eats(Sue,x4)
+9. ~Likes(John, Peanuts)
+10. ~Isfood(Peanuts) 1,9 {x1/Peanuts}
+11. ~Eats(x2,Peanuts) | Killedby(x2,Peanuts) 4,10 {y2/Peanuts}
+12. Killedby(Bill,Peanuts) 6,11 {x2/Bill}
+13. ~Alive(Bill) 5,12 {x3/Bill,y3/Peanuts}
+14. contradiction 7,13
+
+John likes Peanuts.
+
+2d
+1. ~Isfood(x1) | Likes(John/x1)
+2. Isfood(Apple)
+3. Isfood(Chicken)
+4. ~Eats(x2,y2) | Killedby(x2,y2) | Isfood(y2)
+5. ~Killedby(x3,y3) | ~Alive(x3)
+6. Eats(Bill, Peanuts)
+7. Alive(Bill)
+8. ~Eats(Bill,x4) | Eats(Sue,x4)
+9. ~Eats(Sue,x)
+10. ~Eats(Bill, x) 8,9 {x4/x}
+11. contradiction 6,10 {x/Peanuts}
+
+Sue eats Peanuts. (Can bind x to a specific value (Peanuts) so Peanuts is
+an answer to the query)
+
+2e
+(A x)((E y)~Eats(x,y) => Dies(x))
+Dies(x) => ~Alive(x)
+Alive(Bill)
+
+Convert to CNF
+Eats(x,F(x)) | Dies(x)
+~Dies(x) | ~Alive(x)
+Alive(Bill)
+
+1. ~Isfood(x1) | Likes(John,x1)
+2. Isfood(Apple)
+3. Isfood(Chicken)
+4. ~Eats(x2,y2) | Killedby(x2,y2) | Isfood(y2)
+5. ~Killedby(x3,y3) | ~Alive(x3)
+6. Eats(x4,F(x4)) | Dies(x4)
+7. ~Dies(x5) | ~Alive(x5)
+8. Alive(Bill)
+9. ~Eats(Bill,x6) | Eats(Sue,x6)
+10. ~Eats(Sue,x)
+11. ~Eats(Bill,x) 9,10 {x6,x}
+12. Dies(Bill) 6,11 {x4/Bill, F(x4)/x}
+13. ~Alive(Bill) 7,12 {x5/Bill}
+14. contradiction 8,13
+
+Sue eats something. (Cannot bind x to a specific value so cannot say what 
+specific food she eats)
+
+3.1
+No
+
+3.2
+Yes
+
+3.3
+The answers of the two SAT instances tell me that the graph is not colorable with 3 colors but is colorable with 4 colors.
+
+Solution
+1-purple, 2-blue, 3-green, 4-purple, 5-red, 6-green, 7-red
+
+3.4
+8 colors
